@@ -1,0 +1,79 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Scoped styles for the profile page */
+  .profile-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .profile-page .profile-container {
+    background-color: #fff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 40px; /* Increased padding for better spacing */
+    border-radius: 15px;
+    width: 500px; /* Increased width */
+    height: auto; /* Adjusted height to accommodate image dynamically */
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .profile-page .profile-container:hover {
+    transform: scale(1.02);
+  }
+
+  .profile-page h1 {
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .profile-page .profile-details {
+    text-align: left;
+    font-size: 16px;
+    color: #495057;
+    margin-top: 20px;
+  }
+
+  .profile-page .profile-details p {
+    margin: 10px 0;
+    line-height: 1.5;
+  }
+
+  .profile-page .profile-details p strong {
+    color: #343a40;
+  }
+
+  .profile-page .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div class="profile-page">
+  <div class="profile-container">
+    <h1>User Profile</h1>
+    <!-- User Image -->
+    <% if (user.image) { %>
+      <img class="profile-image" src="<%= user.image %>" alt="User Image">
+    <% } else { %>
+      <p>No profile image available</p>
+    <% } %>
+    
+    <div class="profile-details">
+      <p><strong>Username:</strong> <%= user.username %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>College:</strong> <%= user.college %></p>
+    </div>
+  </div>
+</div>

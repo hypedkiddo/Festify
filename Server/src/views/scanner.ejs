@@ -1,0 +1,141 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Scoped styles for the QR Scanner page */
+  .scanner-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .scanner-page .scanner-container {
+    background-color: #fff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .scanner-page .scanner-container:hover {
+    transform: scale(1.02);
+  }
+
+  .scanner-page h1 {
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  #reader {
+    width: 100%;
+    margin: auto;
+    border: 2px solid #ced4da;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: green;
+  }
+
+  #result.error {
+    color: red;
+  }
+</style>
+
+<div class="scanner-page">
+  <div class="scanner-container">
+    <h1>QR Scanner</h1>
+    <div id="reader"></div>
+    <div id="result">Waiting for QR code...</div>
+  </div>
+</div>
+
+<!-- Include the HTML5 QR code library -->
+<script src="/js/html5-qrcode.min.js"></script>
+
+<script>
+  console.log("Html5Qrcode initialized:", typeof Html5Qrcode);
+
+  const qrCodeReader = new Html5Qrcode("reader");
+  const resultDiv = document.getElementById("result");
+  function validateAndRedirect(qrCodeMessage) {
+    console.log("Scanned QR Code:", qrCodeMessage);
+
+    // Ensure the QR code message is valid and not empty
+    if (!qrCodeMessage || typeof qrCodeMessage !== "string") {
+      resultDiv.textContent = "Invalid QR Code scanned.";
+      resultDiv.className = "error";
+      return;
+    }
+
+    // Redirect to the scanned URL
+    resultDiv.textContent = "Redirecting to profile...";
+    resultDiv.className = "";
+    window.location.href = qrCodeMessage;
+  }
+
+  // Start the QR scanner
+  Html5Qrcode.getCameras()
+    .then(devices => {
+      if (devices && devices.length > 0) {
+        // Look for the back camera
+        const backCamera = devices.find(device =>
+          device.label.toLowerCase().includes("back") || device.label.toLowerCase().includes("environment")
+        );
+        const cameraId = backCamera ? backCamera.id : devices[0].id; // Default to the first camera if back camera is not found
+
+        console.log("Using camera:", backCamera ? backCamera.label : devices[0].label);
+
+        qrCodeReader.start(
+          cameraId,
+          { fps: 10, qrbox: 250 },
+          qrCodeMessage => {
+            // Update result and validate the QR code message
+            resultDiv.textContent = `Scanned QR Code: ${qrCodeMessage}`;
+            resultDiv.className = "";
+            validateAndRedirect(qrCodeMessage);
+
+            // Stop scanning after a successful read
+            qrCodeReader.stop().catch(err => {
+              console.error("Error stopping QR Code scanner:", err);
+            });
+          },
+          errorMessage => {
+            // Log scan errors
+            console.error("QR Code Scan Error:", errorMessage);
+            resultDiv.textContent = "Error scanning QR Code. Try again.";
+            resultDiv.className = "error";
+          }
+        ).catch(err => {
+          // Log and display errors during scanner initialization
+          console.error("Unable to start QR Code Scanner:", err);
+          resultDiv.textContent = "Error starting QR Code scanner.";
+          resultDiv.className = "error";
+        });
+      } else {
+        // No cameras found
+        console.error("No cameras found on this device.");
+        resultDiv.textContent = "No cameras found. Please check your device.";
+        resultDiv.className = "error";
+      }
+    })
+    .catch(err => {
+      // Error accessing cameras
+      console.error("Error accessing cameras:", err);
+      resultDiv.textContent = "Unable to access camera.";
+      resultDiv.className = "error";
+    });
+</script>

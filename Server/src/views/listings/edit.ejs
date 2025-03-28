@@ -1,0 +1,128 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+    /* Scoped styles for the event page */
+    .event-page {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .event-page h2, .event-page h3 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #343a40;
+        font-weight: bold;
+    }
+
+    .event-page .form-container {
+        background-color: #fff;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        border-radius: 15px;
+        width: 500px;
+        margin: auto;
+        transform: scale(1);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .event-page .form-container:hover {
+        transform: scale(1.02);
+    }
+
+    .event-page .form-container label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .event-page .form-container input, .event-page .form-container textarea {
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .event-page .form-container input:focus, .event-page .form-container textarea:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .event-page .btn-dark {
+        background-color: #343a40;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    .event-page .btn-dark:hover {
+        background-color: #23272b;
+    }
+
+    .event-page .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    .event-page .btn-danger:hover {
+        background-color: #c82333;
+    }
+</style>
+
+<div class="event-page">
+    <div class="form-container">
+        <h3>Edit this Listing</h3>
+        <form method="POST" action="/api/v1/events/update/<%= existingEvent._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input name="title" value="<%= existingEvent.title %>" type="text" class="form-control" required>
+                <div class="valid-feedback">
+                    Title Looks good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input name="description" value="<%= existingEvent.description %>" type="text" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload your new image</label>
+                <input name="image" value="<%= existingEvent.image %>" type="file" class="form-control">
+            </div>
+
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="price" value="<%= existingEvent.price %>" type="number" class="form-control" required>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input name="location" value="<%= existingEvent.location %>" type="text" class="form-control" required>
+                </div>
+            </div>
+
+            <button class="btn btn-danger">Edit</button>
+        </form>
+    </div>
+</div>

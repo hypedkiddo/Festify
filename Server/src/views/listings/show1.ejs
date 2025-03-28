@@ -1,0 +1,83 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="container mt-5">
+        <!-- Main Card -->
+        <div class="card p-4 shadow-lg border-0 rounded-lg" style="background: #f8f9fa;">
+            <!-- Title -->
+            <h3 class="text-center mb-4 text-primary" style="font-weight: bold; text-transform: uppercase;">
+                <%= event.title %>
+            </h3>
+            
+            <div class="row align-items-center">
+                <!-- Image Section -->
+                <div class="col-lg-6 col-md-12 text-center mb-4 mb-lg-0">
+                    <img 
+                        src="<%= event.image %>" 
+                        alt="Event image" 
+                        class="img-fluid rounded shadow-lg"
+                        style="max-height: 300px; object-fit: cover;">
+                    <% if (!(currUser && currUser.isAdmin)) { %>
+                      <!-- Registration Buttons -->
+                      <div class="d-flex flex-column align-items-center mt-4">
+                        <!-- Register as a Gitian -->
+                        <% if (isStudent) { %>
+                        <form action="/api/v1/users/registerStudent" method="POST" class="w-75">
+                            <button type="submit" class="btn btn-outline-primary mb-3 py-2" 
+                                    style="font-size: 1.1rem; font-weight: 500;">
+                                Register as a Student
+                            </button>
+                        </form>
+                        <% } %>
+                        <% if (!isStudent) { %>
+                        <!-- Register as a Participant -->
+                        <form action="/api/v1/users/registerParticipant" method="POST" class="w-75">
+                            <button type="submit" class="btn btn-outline-secondary py-2" 
+                                    style="font-size: 1.1rem; font-weight: 500;">
+                                Register as a Participant
+                            </button>
+                        </form>
+                        <% } %>
+                    </div>
+                    <% } %>
+                </div>
+                
+                <!-- Details Section -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card-body bg-white p-4 rounded shadow-sm">
+                        <p class="card-text mb-4" style="font-size: 1.1rem;">
+                            <strong class="text-dark">Description:</strong> <%= event.description %>
+                        </p>
+                        <p class="card-text mb-4" style="font-size: 1.1rem;">
+                            <strong class="text-dark">Price per head:</strong> 
+                            <span class="text-success">&#8377;<%= event.price.toLocaleString("en-IN") %></span>
+                        </p>
+                        <p class="card-text mb-4" style="font-size: 1.1rem;">
+                            <strong class="text-dark">Live at:</strong> <%= event.location %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <% if (currUser && currUser.isAdmin) { %>
+            <div class="text-center mt-5">
+               <a href="/api/v1/events/update/<%= event._id %>">
+                    <button 
+                        class="btn btn-dark mx-3 px-5 py-2"
+                        style="font-size: 1.2rem; font-weight: 500;">
+                       Edit this Event
+                    </button>
+                </a>
+                <form method="POST" action="/api/v1/events/delete/<%=event._id%>?_method=DELETE" class="d-inline">
+                    <button 
+                        class="btn btn-danger mx-3 px-5 py-2"
+                        style="font-size: 1.2rem; font-weight: 500;">
+                        Delete this Event
+                    </button>
+                </form>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</body>

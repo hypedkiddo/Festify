@@ -1,0 +1,90 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    /* Scoped styles for the login page */
+    .login-page {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-page h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #343a40;
+        font-weight: bold;
+    }
+
+    .login-page .form-container {
+        background-color: #fff;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        border-radius: 15px;
+        width: 400px;
+        margin: auto;
+        transform: scale(1);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .login-page .form-container:hover {
+        transform: scale(1.02);
+    }
+
+    .login-page .form-container label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .login-page .form-container input {
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .login-page .form-container input:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .login-page .btn-success {
+        background-color: #28a745;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    .login-page .btn-success:hover {
+        background-color: #218838;
+    }
+</style>
+
+<div class="login-page">
+    <div class="form-container">
+        <h2>Security Login</h2>
+        <form action="/api/v1/security/login" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input name="username" placeholder="Enter username" type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input name="password" placeholder="Enter password" type="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
+</div>

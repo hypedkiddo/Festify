@@ -1,0 +1,34 @@
+<% layout("/layouts/boilerplate") %>
+
+    <body>
+        <div class="row">
+            <div class="col-8 offset-2 ">
+                    <h3 class="mb-2 ml-5"><%= event.title %></h3>
+                <div class="card listing-card">
+                        <div class="col-6 img-section mb-2">
+                            <img src="<%= event.image %>" class="card-img-top show-img" alt="listings image">
+                        </div>
+                    <div class="row">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <p class="card-text"><b>Description:</b> &nbsp;<%= event.description %> </p>
+                                <p class="card-text"><b>Price per night:</b>&nbsp;&#8377;<%= event.price.toLocaleString("en-IN")%></p>
+                                    <p class="card-text"><b>Hotel Location:</b>&nbsp; <%= event.location %></p>
+                                        
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button">
+                    <a href="" class="btn btn-dark">Edit this listing</a>
+                    <br>
+                    <form method="POST" action="">
+                        <button class="btn btn-danger">Delete this post</button>
+                    </form>
+                </div>
+             
+            </div>
+            <!-- //Creating review  functionality -->
+        </div>
+        <!-- <script src="/js/script.js"></script> -->
+    </body>

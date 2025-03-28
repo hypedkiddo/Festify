@@ -1,0 +1,11 @@
+*.env
+.env
+.env*
+
+/.vscode 
+/node_modules
+./dist
+
+# Here prettier doesnt apply to the above files and directories
+# prettier is used to follow a standard code practise to avoid merge conflicts 
+# which occurs during working with a team

@@ -1,0 +1,88 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Scoped styles for the OTP page */
+  .otp-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .otp-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+    font-weight: bold;
+  }
+
+  .otp-page .form-container {
+    background-color: #fff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    margin: auto;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .otp-page .form-container:hover {
+    transform: scale(1.02);
+  }
+
+  .otp-page .form-container label {
+    font-weight: 600;
+    color: #495057;
+  }
+
+  .otp-page .form-container input {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .otp-page .form-container input:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .otp-page .btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+
+  .otp-page .btn-success:hover {
+    background-color: #218838;
+  }
+</style>
+
+<div class="otp-page">
+  <div class="form-container">
+    <h2>Verify Your OTP</h2>
+    <form action="/api/v1/users/register/verifyotp" method="POST">
+      <div class="mb-3">
+        <label for="otp">Enter OTP:</label>
+        <input type="text" id="otp" name="otp" placeholder="Enter your OTP" required>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+</div>
+ 

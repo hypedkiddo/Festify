@@ -1,0 +1,106 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+    /* Scoped styles for the event creation page */
+    .event-page {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .event-page h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #343a40;
+        font-weight: bold;
+    }
+
+    .event-page .form-container {
+        background-color: #fff;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        border-radius: 15px;
+        width: 500px;
+        margin: auto;
+        transform: scale(1);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .event-page .form-container:hover {
+        transform: scale(1.02);
+    }
+
+    .event-page .form-container label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .event-page .form-container input, .event-page .form-container textarea {
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .event-page .form-container input:focus, .event-page .form-container textarea:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .event-page .btn-dark {
+        background-color: #343a40;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    .event-page .btn-dark:hover {
+        background-color: #23272b;
+    }
+</style>
+
+<div class="event-page">
+    <div class="form-container">
+        <h2 class="form-title">Add New Event</h2>
+        <form method="POST" action="/api/v1/events/create " novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input name="title" placeholder="Enter title" type="text" class="form-control" required>
+                <div class="valid-feedback">
+                    Title looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="Description" class="form-label">Description</label>
+                <textarea name="description" placeholder="Enter description" class="form-control" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input name="image" type="file" class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="price" placeholder="Enter price" class="form-control" required>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="country" class="form-label">Location</label>
+                    <input name="location" placeholder="Enter location" type="text" class="form-control" required>
+                </div>
+            </div>
+            <button class="btn btn-dark">Add</button>
+        </form>
+    </div>
+</div>

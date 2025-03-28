@@ -1,0 +1,55 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    #filters{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .filters{
+        text-align: center;
+        margin-right: 5rem;
+        margin-top: 1rem;
+        opacity: 0.7;
+    }
+    .filters:hover{
+        opacity: 1;
+        cursor:poiner;
+    }
+
+    .filters p{
+        font-size: 0.8rem;
+    }
+
+    @media (max-width: 780px) {
+        /* CSS rules for screens smaller than 600px */
+        #filters{
+            display: none;
+        }
+    }
+    
+</style>
+
+<body>
+<!-- this thing is possible by the use of ejs mate -->
+   
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-2">
+            <% for(let listings of data){  %>
+                <a href="/api/v1/events/individual/<%= listings._id %>" class="listing-link">
+                    <div class="card col listing-card" >
+                        <img src="<%= listings.image %>" class="card-img-top" alt="listings" style="height: 20rem;">
+                        <div class="card-img-overlay">abcd</div>
+                        <div class="card-body">
+                          <p class="card-text">
+                           <b> <%= listings.title %> <br/> </b> 
+                            &#8377;<%= listings.price.toLocaleString("en-IN")%> &nbsp; /night
+                            </p>
+                        </div>
+                      </div>
+                </a>
+              <% } %>
+        </div>
+      
+    
+</body>
